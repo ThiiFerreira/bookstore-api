@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.thiago.bookstore.domain.Categoria;
@@ -27,24 +28,28 @@ public class CategoriaService {
 	public List<Categoria> findAll() {
 		return repository.findAll();
 	}
-	
-	//metodo para retornar uma nova categoria
+
+	// metodo para retornar uma nova categoria
 	public Categoria create(Categoria obj) {
 		obj.setId(null);
 		return repository.save(obj);
 	}
-	
-	//metodo para retornar a categoria atualizada para a CategoriaResouce
+
+	// metodo para retornar a categoria atualizada para a CategoriaResouce
 	public Categoria update(Integer id, CategoriaDTO objDto) {
 		Categoria obj = findById(id);
 		obj.setNome(objDto.getNome());
 		obj.setDescricao(objDto.getDescricao());
 		return repository.save(obj);
 	}
-	
-	//metodo para deletar uma categoria
+
+	// metodo para deletar uma categoria
 	public void delete(Integer id) {
 		findById(id);
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new com.thiago.bookstore.service.exceptions.DataIntegrityViolationException("Categoria não pode ser deletada! Possui livros associados");
+		}
 	}
 }
