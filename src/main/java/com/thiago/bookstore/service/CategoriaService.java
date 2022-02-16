@@ -41,4 +41,10 @@ public class CategoriaService {
 		obj.setDescricao(objDto.getDescricao());
 		return repository.save(obj);
 	}
+	
+	//metodo para deletar uma categoria
+	public void delete(Integer id) {
+		findById(id);
+		repository.deleteById(id);
+	}
 }
