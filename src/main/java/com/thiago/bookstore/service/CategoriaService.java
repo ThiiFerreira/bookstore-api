@@ -17,7 +17,8 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
-
+	
+	//faz a busca da categoria pelo id e verifica se a categoria existe
 	public Categoria findById(Integer id) {
 
 		Optional<Categoria> obj = repository.findById(id);
