@@ -18,7 +18,7 @@ public class LivroService {
 
 	@Autowired
 	private CategoriaService categoriaService;
-	
+
 	// faz a busca para verificar se o livro existe
 	public Livro findById(Integer id) {
 		Optional<Livro> obj = repository.findById(id);
@@ -26,10 +26,25 @@ public class LivroService {
 				() -> new ObjectNotFoundException("Objeto não encontrato: " + id + ", Tipo: " + Livro.class.getName()));
 
 	}
-	
+
 	// metodo para retornar a lista de livros da categoria
 	public List<Livro> findAll(Integer id_cat) {
 		categoriaService.findById(id_cat);
 		return repository.findAllByCategoria(id_cat);
 	}
+
+	// verfica se o livro exite para fazer a atualização
+	public Livro update(Integer id, Livro obj) {
+		Livro newObj = findById(id);
+		updateData(newObj, obj);
+		return repository.save(newObj);
+	}
+
+	// atualizando os dados do livro
+	private void updateData(Livro newObj, Livro obj) {
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setNome_autor(obj.getNome_autor());
+		newObj.setTexto(obj.getTexto());
+	}
+
 }
