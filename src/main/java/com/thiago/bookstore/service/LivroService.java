@@ -47,12 +47,18 @@ public class LivroService {
 		newObj.setNome_autor(obj.getNome_autor());
 		newObj.setTexto(obj.getTexto());
 	}
-	//recebendo os dados do novo livro
+
+	// recebendo os dados do novo livro
 	public Livro create(Integer id_cat, Livro obj) {
 		obj.setId(null);
 		Categoria cat = categoriaService.findById(id_cat);
 		obj.setCategoria(cat);
 		return repository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		Livro obj = findById(id);
+		repository.delete(obj);
 	}
 
 }
