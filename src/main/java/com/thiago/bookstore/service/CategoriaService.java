@@ -17,15 +17,16 @@ public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repository;
-	
-	//faz a busca da categoria pelo id e verifica se a categoria existe
+
+	// faz a busca da categoria pelo id e verifica se a categoria existe
 	public Categoria findById(Integer id) {
 
 		Optional<Categoria> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrato! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-
+	
+	//retornar uma lista das categorias
 	public List<Categoria> findAll() {
 		return repository.findAll();
 	}
@@ -50,7 +51,8 @@ public class CategoriaService {
 		try {
 			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new com.thiago.bookstore.service.exceptions.DataIntegrityViolationException("Categoria não pode ser deletada! Possui livros associados");
+			throw new com.thiago.bookstore.service.exceptions.DataIntegrityViolationException(
+					"Categoria não pode ser deletada! Possui livros associados");
 		}
 	}
 }
