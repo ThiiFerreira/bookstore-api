@@ -6,7 +6,7 @@ https://bookstore-api-production-thiago.up.railway.app/categorias -> Retorna tod
 #
 https://bookstore-api-production-thiago.up.railway.app/categorias/1 -> Retorna só a categoria que teve o id passada na url.
 #
-https://thiago-bookstore-api.herokuapp.com/livros/1 -> Retorna o livro que teve o id passado na url.
+https://bookstore-api-production-thiago.up.railway.app/livros/1 -> Retorna o livro que teve o id passado na url.
 #
 https://bookstore-api-production-thiago.up.railway.app/livros?categoria=1 -> Retorna os livros da categoria que teve o id passado no parametro.
 #
